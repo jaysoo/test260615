@@ -4,8 +4,8 @@
   "tasks": {
     "build": {
       "inputs": [
-        "pages/**",
-        "public/**",
+        "pages/**/*",
+        "public/**/*",
         "next.config.js"
       ],
       "dependsOn": ["^build"],

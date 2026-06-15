@@ -1,5 +1,6 @@
 import { Card } from "@repo/ui";
 
+// bump 1
 export default function Home() {
   return (
     <main style={{ fontFamily: "system-ui", padding: "3rem", maxWidth: 640 }}>
