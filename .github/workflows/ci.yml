@@ -13,7 +13,7 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-  TURBO_CACHE: "true"
+  TURBO_CACHE: "remote:rw"
 
 jobs:
   build:
