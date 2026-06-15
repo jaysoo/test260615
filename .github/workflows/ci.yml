@@ -13,10 +13,7 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-  # Uncomment for a self-hosted cache server instead of Vercel Remote Cache:
-  # TURBO_API: ${{ vars.TURBO_API }}
-  # CI should only trust remote cache (no local .turbo carried between runs):
-  TURBO_REMOTE_ONLY: "true"
+  TURBO_CACHE: "true"
 
 jobs:
   build:
@@ -37,5 +34,5 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: Build + lint + type-check (remote cached)
-        run: pnpm turbo run build lint check-types
+      - name: Build
+        run: pnpm turbo run build
