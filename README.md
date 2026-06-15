@@ -1,5 +1,7 @@
 # Turborepo + Next.js + Shared Remote Cache
 
+bump: 1
+
 Minimal Turborepo monorepo:
 
 ```
