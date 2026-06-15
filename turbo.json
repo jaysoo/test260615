@@ -3,6 +3,11 @@
   "ui": "tui",
   "tasks": {
     "build": {
+      "inputs": [
+        "pages/**",
+        "public/**",
+        "next.config.js"
+      ],
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
