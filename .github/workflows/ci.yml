@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Shared remote cache key. Same token + team on every branch and on main,
+# so Turborepo reads/writes the SAME remote cache regardless of branch.
+# Turbo cache keys hash task inputs (not the branch), so a build on a branch
+# restores artifacts produced on main and vice versa.
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  # Uncomment for a self-hosted cache server instead of Vercel Remote Cache:
+  # TURBO_API: ${{ vars.TURBO_API }}
+  # CI should only trust remote cache (no local .turbo carried between runs):
+  TURBO_REMOTE_ONLY: "true"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build + lint + type-check (remote cached)
+        run: pnpm turbo run build lint check-types
